@@ -1,7 +1,6 @@
 import euler54
 
-# I know I don't have to type euler54.Hand() every time, but I wrote a macro that did it
-# for me and I just didn't want to change the macro for a coding challenge
+
 royal_flush = [[14, 1],
                [13, 1],
                [12, 1],
@@ -282,7 +281,6 @@ def test_Hand_subWeight():
     assert euler54.Hand(three_of_a_kind).subWeight() == [3,2]
 
 def test_Hand_subWeightHandler():
-    #wip
     assert euler54.Hand(pair).subWeightHandler() == [5,4,2]
     assert euler54.Hand(two_pair).subWeightHandler() == [5]
     assert euler54.Hand(three_of_a_kind).subWeightHandler() == [3,2]
@@ -301,3 +299,6 @@ def test_tiebreaker():
     assert euler54.tiebreaker([9,8,7],[8,7,6]) == 1
     assert euler54.tiebreaker([8,7,6],[9,8,7]) == 0
 
+# def test_printWins():
+#     assert euler54.printWins(euler54.firstPlayerWeightedHands,
+#                             euler54.secondPlayerWeightedHands) ==376

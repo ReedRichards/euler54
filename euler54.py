@@ -81,18 +81,8 @@ secondPlayerHandList = [hand[5:] for hand in valuedHand]
 # [
 #     hand weight (eg. Royal Flush is 10, and a pair is 1)],
 #     sub hand weight (pair of aces beats pair of 2's),
-#     and remaing values being high cards sorted highest to lowest for tie breakers
 # ]
 #
-# so according to this a royal flush would be represented as [10] because it is the highest possible hand, and will not
-# require additional parameters, and a pair of 3's with Ace, King, Queen, would be represented as [1,14,13,12]
-#
-# this could also be done with class Hand with methods weight, subweight, and tiebreaker, but I feel like the above will
-# be simpler to evaluate despite the classes being easier to encode, but in real life I'd probably do both, and see
-# which is more efficient.
-
-# the first theing we are going to check for is whether or not the hand is a royal flush, so we need to make
-# two functions, isFlush(), and isSequence() those functions will also be calling getSuits() and getValues() so we will
 
 class Hand:
     # takes an hand array containing integers of [value,suit] and operates on them
