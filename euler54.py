@@ -306,11 +306,12 @@ class Hand:
                 cards.append(key)
         return sorted(cards, reverse=True)
 
+# create an arry for each player that is [weight.subweight]
 firstPlayerWeightedHands = [[Hand(hand).weight(), Hand(hand).subWeight()] for hand in firstPlayerHandsList]
 secondPlayerWeightedHands = [[Hand(hand).weight(), Hand(hand).subWeight()] for hand in secondPlayerHandList]
 
 
-
+# breks ties on subweight
 def tiebreaker(h1,h2):
     for (tiebreaker1, tiebreaker2) in zip(h1, h2):
         if tiebreaker1 > tiebreaker2:
@@ -319,8 +320,9 @@ def tiebreaker(h1,h2):
             return 0
         continue
 
-
-def printWins(p1,p2):
+# evaluates wight and subweight
+# returns wins
+def wins(p1,p2):
     wins = 0
     for (hand1, hand2) in zip(p1,p2):
         if hand1[0] > hand2[0]:
@@ -330,4 +332,4 @@ def printWins(p1,p2):
             wins += tiebreaker(hand1[1],hand2[1])
     return (wins)
 
-print("Wins: ", printWins(firstPlayerWeightedHands,secondPlayerWeightedHands))
+print("Wins: ", wins(firstPlayerWeightedHands,secondPlayerWeightedHands))
