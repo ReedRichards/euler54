@@ -2,6 +2,8 @@ from collections import Counter
 
 
 def cardValueStringToNumbers(cardedHandsList):
+    # takes a list of hands, with a list of [value,suit] cards
+    # returns a list of hands with the values represented as numbers instead of strings
     valuedHand = []
     for hand in cardedHandsList:
         valuedCards = []
@@ -23,6 +25,8 @@ def cardValueStringToNumbers(cardedHandsList):
 
 
 def cardSuitStringToNumbers(cardedHandsList):
+    # takes a list of hands, with a list of [value,suit] cards
+    # returns a list of hands with the suits represented as numbers instead of strings
     # spades =1
     # clubs = 2
     # hearts = 3
@@ -183,6 +187,8 @@ class Hand:
         return False
 
     def isThreeOfAKind(self):
+        # returns true hand is a three of a kind,
+        # also makes sure that its not a full houes
         pairs = self.numberOfPairsDict()
         iter = 0
         for key, value in pairs.items():
@@ -193,6 +199,9 @@ class Hand:
         return iter == 1
 
     def isPair(self):
+         # returns true if pair
+         # returns false otherwis, also test to make sure its not a
+         # full house or two pair
         pairs = self.numberOfPairsDict()
         iter = 0
         for key, value in pairs.items():
@@ -203,6 +212,8 @@ class Hand:
         return iter == 1
 
     def isTwoPair(self):
+        # returns true if two pair
+        # also checks to make sure its not a regular pair
         pairs = self.numberOfPairsDict()
         iter = 0
         for key, value in pairs.items():
@@ -211,6 +222,7 @@ class Hand:
         return iter == 2
 
     def isFullHouse(self):
+        # returns true if full house
         pairs = self.numberOfPairsDict()
         iter = 0
         for key, value in pairs.items():
@@ -223,6 +235,7 @@ class Hand:
 
 
     def weight(self):
+        # returns an integer representing card weight based on hand
         if self.isRoyalFlush():
             return 9
         if self.isStraightFlush():
@@ -244,42 +257,28 @@ class Hand:
         return 0
 
     def subWeight(self):
+        # returns a subweight to break ties
         weight = self.weight()
         values = self.values()
-        # royal flush
         if self.isRoyalFlush():
             return [0]
-        # straight flush
-        if weight == 8:
+        if self.isStraightFlush():
             # high card beats equal straight flushes
             return [max(values)]
-        # four of a kind
-        if weight == 7:
-            # high card beats a tie
-            # sorted for ultimate tiebreaker of final high card
+        if self.isFourOfAKind():
             return self.subWeightHandler()
-        # full house
-        if weight == 6:
-            # high card beats tie, if equal, low card beats tie
+        if self.isFullHouse():
             return [max(values), min(values)]
-        # flush
-        if weight == 5:
-            # iterate cards highest to lowest
+        if self.isFlush():
             return sorted(values, reverse=True)
-        # straight
-        if weight == 4:
-            # high card beats tie
+        if self.isStraight():
             return [max(values)]
-        # three of a kind
-        if weight == 3:
+        if self.isThreeOfAKind():
             return self.subWeightHandler()
-        # two pair
-        if weight == 2:
+        if self.isTwoPair():
             return self.subWeightHandler()
-        # one pair
-        if weight == 1:
+        if self.isPair():
             return self.subWeightHandler()
-        # high card
         if weight == 0:
             return sorted(values, reverse=True)
 
@@ -331,4 +330,4 @@ def printWins(p1,p2):
             wins += tiebreaker(hand1[1],hand2[1])
     return (wins)
 
-print(printWins(firstPlayerWeightedHands,secondPlayerWeightedHands))
+print("Wins: ", printWins(firstPlayerWeightedHands,secondPlayerWeightedHands))
