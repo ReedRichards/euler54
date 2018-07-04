@@ -118,10 +118,3 @@ def wins(p1,p2):
 
 
 print("Wins: ", wins(firstPlayerWeightedHands,secondPlayerWeightedHands))
-
-pair = [[1, 1],
-        [1, 2],
-        [4, 3],
-        [5, 4],
-        [2, 1]]
-Hand(pair).subWeight()
