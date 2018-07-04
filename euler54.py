@@ -231,6 +231,7 @@ class Hand:
         return iter == 2
 
     def sortedExtraHighCards(self):
+        ## this is where I messed up
         pairsDict = self.numberOfPairsDict()
         cards = []
         for key, value in pairsDict.items():
