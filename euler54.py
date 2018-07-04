@@ -227,17 +227,10 @@ class Hand:
             if value == 3:
                 iter += 1
             if value == 2:
-                iter += 1
-        return iter == 2
+                iter += 2
+        return iter == 3
 
-    def sortedExtraHighCards(self):
-        ## this is where I messed up
-        pairsDict = self.numberOfPairsDict()
-        cards = []
-        for key, value in pairsDict.items():
-            if value == 1:
-                cards.append(key)
-        return sorted(cards, reverse=True)
+
 
     def weight(self):
         if self.isRoyalFlush():
@@ -265,15 +258,16 @@ class Hand:
         values = self.values()
         # royal flush
         if weight == 9:
-            return 0
+            return [0]
         # straight flush
         if weight == 8:
             # high card beats equal straight flushes
-            return max(values)
+            return [max(values)]
         # four of a kind
         if weight == 7:
             # high card beats a tie
-            return max(values)
+            # sorted for ultimate tiebreaker of final high card
+            return self.subWeightHandler()
         # full house
         if weight == 6:
             # high card beats tie, if equal, low card beats tie
@@ -285,10 +279,10 @@ class Hand:
         # straight
         if weight == 4:
             # high card beats tie
-            return max(values)
+            return [max(values)]
         # three of a kind
         if weight == 3:
-            return self.sortedExtraHighCards()
+            return self.subWeightHandler()
         # two pair
         if weight == 2:
             return self.sortedExtraHighCards()
@@ -299,6 +293,30 @@ class Hand:
         if weight == 0:
             return sorted(values)
 
+    def subWeightHandler(self):
+        if self.isFourOfAKind():
+            return self.fourOfAKindSubweight()
+        if self.isThreeOfAKind():
+            return self.sortedExtraHighCards()
+
+    def fourOfAKindSubweight(self):
+        pairsDict = self.numberOfPairsDict()
+        subweight =[0,0]
+        for key, value in pairsDict.items():
+            if value == 1:
+                subweight[1] = key
+            if value == 4:
+                subweight[0] = key
+        return subweight
+
+    def sortedExtraHighCards(self):
+        ## this is where I messed up
+        pairsDict = self.numberOfPairsDict()
+        cards = []
+        for key, value in pairsDict.items():
+            if value == 1:
+                cards.append(key)
+        return sorted(cards, reverse=True)
 
 firstPlayerWeightedHands = [[Hand(hand).weight(), Hand(hand).subWeight()] for hand in firstPlayerHandsList]
 secondPlayerWeightedHands = [[Hand(hand).weight(), Hand(hand).subWeight()] for hand in secondPlayerHandList]
