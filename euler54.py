@@ -114,17 +114,27 @@ class Hand:
         return suits
 
     def values(self):
-        #  and returns an array containing values
+        # returns an array containing values
         # Hand([[1, 1], [1, 2], [1, 3], [1, 4], [2, 1]]).values() => [1, 1, 1, 1, 2]
         values = []
         for card in self.hand:
             values.append(card[0])
         return values
 
-    def sortedValues(self):
+    def numberOfPairsDict(self):
+        # should rename to numberOfOccurrences
+        # return a dictionary with number of occurrences of each value
+        # Hand([[1,1],
+        #       [1,2],
+        #       [2,2],
+        #       [3,2],
+        #       [4,2]]).numberOfPairsDict() => dict({1: 2, 2: 1, 3: 1, 4: 1})
         values = self.values()
-        values.sort(reverse=True)
-        return values
+        return dict(Counter(values))
+
+    def numberOfSuitsDict(self):
+        suits = self.suits()
+        return dict(Counter(suits))
 
     def isFlush(self):
         suitsDict = self.numberOfSuitsDict()
@@ -156,13 +166,6 @@ class Hand:
         is_flush = self.isFlush()
         return is_straight and is_flush
 
-    def numberOfPairsDict(self):
-        values = self.values()
-        return dict(Counter(values))
-
-    def numberOfSuitsDict(self):
-        suits = self.suits()
-        return dict(Counter(suits))
 
     def isFourOfAKind(self):
         pairs = self.numberOfPairsDict()
