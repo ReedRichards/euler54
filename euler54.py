@@ -93,6 +93,7 @@ firstPlayerWeightedHands = [[Hand(hand).weight(), Hand(hand).subWeight()] for ha
 secondPlayerWeightedHands = [[Hand(hand).weight(), Hand(hand).subWeight()] for hand in secondPlayerHandList]
 
 
+
 # breks ties on subweight
 def tiebreaker(h1,h2):
     for (tiebreaker1, tiebreaker2) in zip(h1, h2):
@@ -100,7 +101,7 @@ def tiebreaker(h1,h2):
             return 1
         if tiebreaker2 > tiebreaker1:
             return 0
-        continue
+
 
 # evaluates wight and subweight
 # returns wins
@@ -114,4 +115,13 @@ def wins(p1,p2):
             wins += tiebreaker(hand1[1],hand2[1])
     return (wins)
 
+
+
 print("Wins: ", wins(firstPlayerWeightedHands,secondPlayerWeightedHands))
+
+pair = [[1, 1],
+        [1, 2],
+        [4, 3],
+        [5, 4],
+        [2, 1]]
+Hand(pair).subWeight()

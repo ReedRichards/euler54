@@ -197,7 +197,27 @@ class Hand:
     def subWeightHandler(self):
         if self.isFourOfAKind():
             return self.fourOfAKindSubweight()
+        if self.isPair() == 1:
+            return self.pairSubWeight()
         return self.sortedExtraHighCards()
+
+    def pairSubWeight(self):
+        pairsDict = self.numberOfPairsDict()
+        subweight = []
+        highCards =[]
+        for key, value in pairsDict.items():
+            if value == 2:
+                subweight.append(key)
+            else:
+                highCards.append(key)
+        highCards.sort(reverse=True)
+        for card in highCards:
+            subweight.append(card)
+
+        return subweight
+
+
+
 
     def fourOfAKindSubweight(self):
         pairsDict = self.numberOfPairsDict()
