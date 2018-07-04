@@ -95,16 +95,27 @@ secondPlayerHandList = [hand[5:] for hand in valuedHand]
 # two functions, isFlush(), and isSequence() those functions will also be calling getSuits() and getValues() so we will
 
 class Hand:
+    # takes an hand array containing integers of [value,suit] and operates on them
+    # Hand([[1,1],
+    #       [1,2],
+    #       [1,3],
+    #       [1,4],
+    #       [2,1]]).suits() => [1,2,3,4,1]
+
     def __init__(self, hand):
         self.hand = hand
 
     def suits(self):
+        # returns an array containing suits
+        # Hand([[1,1],[1,2],[1,3],[1,4],[2,1]]).suits() => [1,2,3,4,1]
         suits = []
         for card in self.hand:
             suits.append(card[1])
         return suits
 
     def values(self):
+        #  and returns an array containing values
+        # Hand([[1, 1], [1, 2], [1, 3], [1, 4], [2, 1]]).values() => [1, 1, 1, 1, 2]
         values = []
         for card in self.hand:
             values.append(card[0])
