@@ -257,7 +257,7 @@ class Hand:
         weight = self.weight()
         values = self.values()
         # royal flush
-        if weight == 9:
+        if self.isRoyalFlush():
             return [0]
         # straight flush
         if weight == 8:
@@ -285,19 +285,18 @@ class Hand:
             return self.subWeightHandler()
         # two pair
         if weight == 2:
-            return self.sortedExtraHighCards()
+            return self.subWeightHandler()
         # one pair
         if weight == 1:
-            return sorted(values, reverse=True)
+            return self.subWeightHandler()
         # high card
         if weight == 0:
-            return sorted(values)
+            return sorted(values, reverse=True)
 
     def subWeightHandler(self):
         if self.isFourOfAKind():
             return self.fourOfAKindSubweight()
-        if self.isThreeOfAKind():
-            return self.sortedExtraHighCards()
+        return self.sortedExtraHighCards()
 
     def fourOfAKindSubweight(self):
         pairsDict = self.numberOfPairsDict()
