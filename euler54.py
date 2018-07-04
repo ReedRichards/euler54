@@ -169,6 +169,7 @@ class Hand:
         return False
 
     def isRoyalFlush(self):
+        # returns True if hand is royal flush
         is_straight = self.isStraight()
         is_flush = self.isFlush()
         values = self.values()
@@ -176,12 +177,15 @@ class Hand:
         return is_flush and is_straight and maximum == 14
 
     def isStraightFlush(self):
+        # if hand is straight and flush returns true
+        # returns false otherwise
         is_straight = self.isStraight()
         is_flush = self.isFlush()
         return is_straight and is_flush
 
-
     def isFourOfAKind(self):
+        # returns true if there are four matching values,
+        # returns false if there are not for matching values
         pairs = self.numberOfPairsDict()
         for key, value in pairs.items():
             if value == 4:
