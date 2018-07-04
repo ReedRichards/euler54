@@ -183,7 +183,7 @@ class Hand:
             return [max(values), min(values)]
         if self.isFlush():
             return sorted(values, reverse=True)
-        if self.isStraight():ye
+        if self.isStraight():
             return [max(values)]
         if self.isThreeOfAKind():
             return self.subWeightHandler()
