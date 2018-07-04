@@ -122,8 +122,8 @@ class Hand:
         return values
 
     def numberOfPairsDict(self):
-        # should rename to numberOfOccurrences
-        # return a dictionary with number of occurrences of each value
+        # should rename to numberOfValueOccurrences
+        # returns a dictionary with number of occurrences of each value
         # Hand([[1,1],
         #       [1,2],
         #       [2,2],
@@ -133,10 +133,23 @@ class Hand:
         return dict(Counter(values))
 
     def numberOfSuitsDict(self):
+        # should rename to numberOfSuitOccurrences
+        # returns a dictionary with number of occurrences of each value
+        # Hand([[1,1],
+        #       [1,2],
+        #       [2,2],
+        #       [3,2],
+        #       [4,2]]).numberOfPairsDict() => dict({1: 1, 2: 4})
         suits = self.suits()
         return dict(Counter(suits))
 
     def isFlush(self):
+        # returns true if hand is flush, false if hand is not flush
+        # Hand([[1,1],
+        #       [2,1],
+        #       [3,1],
+        #       [4,1],
+        #       [5,1]]).isFlush() => True
         suitsDict = self.numberOfSuitsDict()
         for key, value in suitsDict.items():
             if value == 5:
@@ -145,6 +158,7 @@ class Hand:
 
     def isStraight(self):
         # refactor
+        # returns true if values are consecutive
         values = self.values()
         hv = max(values)
         if hv - 1 in values:
