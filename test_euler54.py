@@ -142,3 +142,22 @@ def test_Hand_isFourOfAKind():
                          [1,3],
                          [2,4],
                          [2,2]]).isFourOfAKind() == False
+
+def test_Hand_isThreeOfAKind():
+    assert euler54.Hand([[1,1],
+                         [1,2],
+                         [1,3],
+                         [2,4],
+                         [3,2]]).isThreeOfAKind() == True
+
+    assert euler54.Hand([[1,1],
+                         [1,2],
+                         [4,3],
+                         [2,4],
+                         [3,2]]).isThreeOfAKind() == False
+
+    assert euler54.Hand([[1,1],
+                         [1,2],
+                         [1,3],
+                         [2,4],
+                         [2,2]]).isThreeOfAKind() == False
