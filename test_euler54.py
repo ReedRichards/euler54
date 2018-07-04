@@ -296,3 +296,8 @@ def test_Hand_sortedExtraHighCards():
     assert euler54.Hand(pair).sortedExtraHighCards() == [5,4,2]
     assert euler54.Hand(two_pair).sortedExtraHighCards() == [5]
     assert euler54.Hand(three_of_a_kind).sortedExtraHighCards() == [3,2]
+
+def test_tiebreaker():
+    assert euler54.tiebreaker([9,8,7],[8,7,6]) == 1
+    assert euler54.tiebreaker([8,7,6],[9,8,7]) == 0
+

@@ -320,17 +320,25 @@ class Hand:
 firstPlayerWeightedHands = [[Hand(hand).weight(), Hand(hand).subWeight()] for hand in firstPlayerHandsList]
 secondPlayerWeightedHands = [[Hand(hand).weight(), Hand(hand).subWeight()] for hand in secondPlayerHandList]
 
-wins = 0
-for (hand1, hand2) in zip(firstPlayerWeightedHands, secondPlayerWeightedHands):
-    if hand1[0] > hand2[0]:
-        wins += 1
-        continue
-    if hand1[0] == hand2[0]:
-        for (tiebreaker1, tiebreaker2) in zip(hand1[1], hand2[1]):
-            if tiebreaker1 > tiebreaker2:
-                wins += 1
-                break
-            if tiebreaker2 > tiebreaker1:
-                break
 
-print(wins)
+
+def tiebreaker(h1,h2):
+    for (tiebreaker1, tiebreaker2) in zip(h1, h2):
+        if tiebreaker1 > tiebreaker2:
+            return 1
+        if tiebreaker2 > tiebreaker1:
+            return 0
+        continue
+
+
+def printWins(p1,p2):
+    wins = 0
+    for (hand1, hand2) in zip(p1,p2):
+        if hand1[0] > hand2[0]:
+            wins += 1
+            continue
+        if hand1[0] == hand2[0]:
+            wins += tiebreaker(hand1[1],hand2[1])
+    return (wins)
+
+print(printWins(firstPlayerWeightedHands,secondPlayerWeightedHands))
